@@ -1,0 +1,58 @@
+Setup Instructions:
+1. Setup your OneDrive account on your specific account on pictus-2.
+2. That's it! I setup everything for each person's account so that files and things are isolated from each other.
+
+pre-imagej notes:
+1. As of now, this workflow will only work if you have all five channels w1, w2, w3, w4, w5.
+2. Our lab's standard color-images pairings are w1: transmitted light, w2: 647nm, w3: 546nm, w4: 488nm, w5: 405nm. If your images do not follow our lab's standard wavelength-color pairing, change the names of your wavelength folders to match those color pairings.
+
+Initial data download/transfer instructions:
+1. Open Powershell.
+2. Type "prep_images"
+3. Follow the instructions on the prompt.
+
+imagej/FIJI use instructions:
+1. Open Powershell.
+2. Type "imagej"
+	2a. Follow the instructions and enter your gene names one by one.
+	2b. Drag and drop w1, w2, w3, w4, w5 files into imagej.
+	2c. NOTE: From this point on, be careful not to mistakenly press any keys.
+3. Press "a". 
+	3a. This will add the appropriate color to each channel. If you're not happy with the colors, you can change the colors in the imagej script to colors that are available in imagej.
+	3b. The keys "1", "2", "3", "4" will bring the following windows to the front, respectively: w2, w3, w4, w5. Press the number for whichever channel/gene you think will give you the best information to select a stack range. Then you can press Windows Button + Up to bring the image to the middle. Use the left/right arrow keys to scroll through the stack to find the ideal stack range.
+4. Press shift+z.
+	4a. This will bring up a window asking you to select the starting slice of what you found to be the first slice of the ideal stack range. Enter the slice you thought to be a good starting slice. Then press enter.
+	4b. Immediately after you press enter, another window will pop up asking you to enter the ending slice. Enter that number.
+	4c. You should now have a 2d projection of all channels.
+	4d. The keys "5", "6", "7", "8", will bring up projected images.
+5. Press "5", then press "ctrl+shift+c".
+	5a. Using the contrast/brightness adjustor that popped up after pressing "ctrl+shift+c", adjust the image contrast/brightness to your liking.
+	5b. Repeat this step for each channel by using keys "6", "7", "8".
+6. Press "b".
+	6b. At this point, once you've pressed "b", all projected images with all possible color merges have been created, saved, sorted, labeled with the gene names you've entered at the beginning of the workflow.
+7. Press "c".
+	7a. This will bring up a projected dapi channel images and a window that asks you to draw a polygon around a good individual urchin sample on the projected dapi channel. Draw your polygon around your single embryo. Draw your polygon as close to the sample as possible.
+	7b. Click "OK" on the prompt.
+	7c. Next you will get a prompt asking you to rotate your urchin. The prompt has instructions on how to do this. The rotation dialog that pops up may be covered by another dialog. Move the rotation dialog to a more viewable spot. Check the "Preview" option on the rotation dialog to see the rotation live. You will be limited to 180 degrees with the slider, but you can type in values beyond this range to get your sample the way you want it. Click "OK" on the rotation dialog after you're done rotating. Then click "OK" on the prompt asking you to rotate your sample. 
+	7d. You'll have to repeat 7c 15 times for each channel/color-merge combo. Unfortunately, I ran into some problems with automating this part.
+	7e. Once you're done with 7d, you will get a prompt asking whether or not you have another individual urchin in the image that you want to process. You can repeat this as many times as you want by entering "y" on this prompt. Each sample will be uniquely saved.
+	7f. Once you're done with 7e, you're done with the image processing pipeline for this site.
+	7g. You won't be able to immediately start on another well/site with the current imagej session. You must start a new session for each well/site. It's better like this anyway. Press shift+d to close out everything and to exit out of imagej.
+
+Archiving your final image set:
+1. Open Powershell.
+2. Type "transfer_final_images".
+3. Follow the instructions. Also, make sure to type everything correctly.
+	3a. IMPORTANT NOTE: Well names are always in all caps AND single digit well numbers are always preceded by "0". For example the well from row A, column 1 is not "A1". It is "A01". Site names are the opposite. Site names are always in all lowercase, and single digit site numbers are just the single digit. For example "s1" is just that- "s1". It is not "S01".
+4. Don't worry about all the red text that appears when you excute these commands. They are not errors.
+
+Clean up after each session:
+1. Open Powershell.
+2. Type "cleanup_images".
+
+Start imagej again to process more images. Rinse and repeat.
+
+Using and viewing your images:
+1. There are currently three ways you can view your finished images. Either online in your OneDrive account, on pictus-2, or on your own computer after you've downloaded them from your OneDrive account.
+2. To view the images on pictus-2, go to "HL_RAID10" >  "HL_official_expression_panel_reference_images" .
+3. Do not delete or move anything. If you want to reprocess the same site, just do it again and it will overwrite in all places.
