@@ -64,3 +64,38 @@ if ($move_to_final_locations -eq "y") {
     cp -r "$HOME/experiments/$exp_id/$well_id/$site_id" "$HOME/OneDrive - UC San Diego/HL_official_expression_panel_reference_images/$exp_id/$complete_well_id/$site_id/raw_images"
     $exit = Read-Host -Prompt "Press enter to exit."
     }
+
+$available_exp_list =  Get-Childitem -Directory -Name "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\"
+$merged = @()
+$merged_cut_1 = @()
+
+for ($i = 0; $i -lt $available_exp_list.length; $i++) {
+    
+    $current_exp_id = $available_exp_list[$i]
+    
+    $w2_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_labeled.tif" | % {$_.FullName}
+    $w3_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_labeled.tif" | % {$_.FullName}
+    $w4_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w4_labeled.tif" | % {$_.FullName}
+    $DAPI_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\DAPI_labeled.tif" | % {$_.FullName}
+    $w2_w3_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3.tif" | % {$_.FullName}
+    $w2_w4_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w4.tif" | % {$_.FullName}
+    $w3_w4_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_w4.tif" | % {$_.FullName}
+    $triple_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3_w4.tif" | % {$_.FullName}
+    $merged = $merged + $w2_labeled_set + $w3_labeled_set + $w4_labeled_set + $DAPI_labeled_set + $w2_w3_set +$w2_w4_set + $w3_w4_set + $triple_set
+
+    $w2_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_cut_1.tif" | % {$_.FullName}
+    $w3_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_cut_1.tif" | % {$_.FullName}
+    $w4_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w4_cut_1.tif" | % {$_.FullName}
+    $DAPI_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\DAPI_cut_1.tif" | % {$_.FullName}
+    $w2_w3_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3_cut_1.tif" | % {$_.FullName}
+    $w2_w4_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w4_cut_1.tif" | % {$_.FullName}
+    $w3_w4_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_w4_cut_1.tif" | % {$_.FullName}
+    $triple_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3_w4_cut_1.tif" | % {$_.FullName}
+    $merged_cut_1 = $merged_cut_1 + $w2_cut_1_set + $w3_cut_1_set + $w4_cut_1_set + $DAPI_cut_1_set + $w2_w3_cut_1_set + $w2_w4_cut_1_set + $w3_w4_cut_1_set + $triple_cut_1_set
+
+}
+montage $merged -geometry +3+3 "$HOME/OneDrive - UC San Diego/HL_official_expression_panel_reference_images/live_single_channel_montage.tif"
+montage $merged_cut_1 -geometry +3+3 "$HOME/OneDrive - UC San Diego/HL_official_expression_panel_reference_images/live_single_channel_cut_1_montage.tif"
+
+
+

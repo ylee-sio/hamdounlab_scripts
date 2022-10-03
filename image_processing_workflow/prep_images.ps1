@@ -1,25 +1,41 @@
-﻿cd $HOME
-
-$FolderName = "$HOME/experiments/"
-if (Test-Path $FolderName) {
-	Write-Host "Directory exists."
+﻿# get, display, and record user_id choice
+$user_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\
+$user_list_length = $user_list.Length-1
+echo "Available users:"
+echo " "
+foreach($i in 0..$user_list_length){
+"[$i] " + $user_list[$i]
 }
- else
- {
-	New-Item $FolderName -ItemType Directory
-}
+echo " "
+$user_id_choice = Read-Host -Prompt "Select number in user list"
+$user_id = $user_list[$user_id_choice]
 
-$user_id = Read-Host -Prompt "Enter name of your personal image acquisition folder name"
-$exp_id = Read-Host -Prompt "Enter name of your experiment directory (yyyymmdd-expxxxx)"
-$run_date = Read-Host -Prompt "Enter run date (yyyy-mm-dd)"
-$run_id = Read-Host -Prompt "Enter run id (404 or 315 or xxx)"
+# get, display, and record exp_id choice
+$exp_id_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\
+$exp_id_list_length = $exp_id_list.Length-1
+if ($exp_id_list_length -gt 1){
+
+    echo "Available experiment IDs:"
+    echo " "
+    foreach($i in 0..$exp_list_length){
+        "[$i] " + $exp_id_list[$i]
+      }
+    echo " "
+        $exp_id_choice = Read-Host -Prompt "Select number in experiment ID list"
+    $exp_id = $exp_id_list[$exp_id_choice]
+
+} else {$exp_id = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\*}
+
+$run_date = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id
+$run_id = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date
+
 
 $new_exp_analysis_folder = $exp_id + "_analysis"
 mkdir -p experiments/$new_exp_analysis_folder
 
 echo "********** STARTING MULTITHREADED COPY FROM SERVER TO LOCAL **********"
 
-robocopy \\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date\$run_id\TimePoint_1 $HOME/experiments/$new_exp_analysis_folder /MT:8 /S /E
+robocopy \\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date\$run_id\TimePoint_1 $HOME/experiments/$new_exp_analysis_folder /MT:16 /S /E
 
 echo "********** FINISHED COPYING FILES FROM SERVER TO LOCAL **********"
 echo "********** CLEANING UP LOCAL FILES **********"
