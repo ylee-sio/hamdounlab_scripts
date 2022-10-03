@@ -936,7 +936,8 @@ answer = getString("Select more individual animals/samples? (Enter y or n; Defau
 }
 
 macro "Close all [D]" {
-	close("*");
+	//close("*");
+	run("Quit");
 }
 
 // var for_hcr = getString("Is this session for processing HCR samples? (Enter y or n; Default is n) ", "n");

@@ -60,5 +60,6 @@ do {
 
         cp -r  "$HOME/OneDrive - UC San Diego/temp/final_images/$exp_id"  "$HOME/OneDrive - UC San Diego/HL_official_expression_panel_reference_images"
         mv "$HOME/OneDrive - UC San Diego/temp/final_images/$exp_id"  "D:\HL_official_expression_panel_reference_images"
-
+        cp -r "$HOME/experiments/$exp_id/$well_id/$site_id" "$HOME/OneDrive - UC San Diego/HL_official_expression_panel_reference_images/$exp_id/$complete_well_id/$site_id/raw_images"
+        $exit = Read-Host -Prompt "Press enter to exit."
     }
