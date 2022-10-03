@@ -1,6 +1,6 @@
 ﻿# get, display, and record user_id choice
 $user_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\
-$user_list_length = $user_list.Length-1
+$user_list_length = $user_list.Count
 echo "Available users:"
 echo " "
 foreach($i in 0..$user_list_length){
@@ -12,12 +12,12 @@ $user_id = $user_list[$user_id_choice]
 
 # get, display, and record exp_id choice
 $exp_id_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\
-$exp_id_list_length = $exp_id_list.Length-1
+$exp_id_list_length = $exp_id_list.Count
 if ($exp_id_list_length -gt 1){
 
     echo "Available experiment IDs:"
     echo " "
-    foreach($i in 0..$exp_list_length){
+    foreach($i in 0..$exp_id_list_length){
         "[$i] " + $exp_id_list[$i]
       }
     echo " "
@@ -26,8 +26,38 @@ if ($exp_id_list_length -gt 1){
 
 } else {$exp_id = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\*}
 
-$run_date = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id
-$run_id = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date
+
+# get, display, and record run_date choice
+$run_date_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id
+$run_date_list_length = $run_date_list.Count
+if ($run_date_list_length -gt 1){
+
+    echo "Available experiment IDs:"
+    echo " "
+    foreach($i in 0..$run_date_list_length){
+        "[$i] " + $run_date_list[$i]
+      }
+    echo " "
+        $run_date_choice = Read-Host -Prompt "Select number in run date list"
+    $run_date = $run_date_list[$run_date_choice]
+
+} else {$run_date = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id\}
+
+# get, display, and record run_id choice
+$run_id_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date
+$run_id_list_length = $run_id_list.Count
+if ($run_id_list_length -gt 1){
+
+    echo "Available experiment IDs:"
+    echo " "
+    foreach($i in 0..$run_id_list_length){
+        "[$i] " + $run_id_list[$i]
+      }
+    echo " "
+        $run_id_choice = Read-Host -Prompt "Select number in run ID list"
+    $run_id = $run_id_list[$run_id_choice]
+
+} else {$run_id = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date}
 
 
 $new_exp_analysis_folder = $exp_id + "_analysis"
@@ -79,10 +109,6 @@ foreach ($i in $well_folders){mkdir -p $i/s9}
 foreach ($i in $well_folders){mkdir -p $i/s10}
 foreach ($i in $well_folders){mkdir -p $i/s11}
 foreach ($i in $well_folders){mkdir -p $i/s12}
-foreach ($i in $well_folders){mkdir -p $i/s13}
-foreach ($i in $well_folders){mkdir -p $i/s14}
-foreach ($i in $well_folders){mkdir -p $i/s15}
-foreach ($i in $well_folders){mkdir -p $i/s16}
 
 $site_folders = ls */*/
 foreach ($i in $site_folders) {mkdir -p $i/w1}
