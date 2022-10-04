@@ -86,7 +86,7 @@ foreach ($i in $well_ids){
 foreach ($i in $well_ids){
     foreach($j in $site_ids){
         foreach ($k in $wv_ids){
-            cp -r $HOME/experiments/$new_exp_analysis_folder/*/*$i`_$j`_$k* $HOME/experiments/$exp_id/$i/$j/$k
+            mv $HOME/experiments/$new_exp_analysis_folder/*/*$i`_$j`_$k* $HOME/experiments/$exp_id/$i/$j/$k
         }
      }
    }
