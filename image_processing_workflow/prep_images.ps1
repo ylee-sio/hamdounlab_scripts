@@ -34,8 +34,7 @@ if ($exp_id_list_length -gt 1){
     "[$k] " + $i.FullName + ” — ” + “{0:N2}” -f ($subFolderItems.sum / 1GB) + ” GB”
     $k=$k+1
     }
-
-    echo " "
+    echo "`nNOTE: For every 50GB of image data, expect to wait between 5-10 minutes."
     $exp_id_choice = Read-Host -Prompt "Select number in experiment ID list"
     $exp_id = $exp_id_list[$exp_id_choice]
 
