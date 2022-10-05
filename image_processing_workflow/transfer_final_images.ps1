@@ -193,39 +193,3 @@ if ($move_to_final_locations -eq "y") {
     
     Read-Host -Prompt "Press any key to exit."
     }
-
-$available_exp_list =  Get-Childitem -Directory -Name $gdrive
-$merged = @()
-$merged_cut = @()
-
-for ($i = 0; $i -lt $available_exp_list.count; $i++) {
-    
-    $current_exp_id = $available_exp_list[$i]
-    if ($i -lt $available_exp_list.count){$current_exp_id = $available_exp_list}
-    
-    $w2_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_labeled.tif" | % {$_.FullName}
-    $w3_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w3_labeled.tif" | % {$_.FullName}
-    $w4_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w4_labeled.tif" | % {$_.FullName}
-    $DAPI_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\DAPI_labeled.tif" | % {$_.FullName}
-    $w2_w3_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_w3.tif" | % {$_.FullName}
-    $w2_w4_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_w4.tif" | % {$_.FullName}
-    $w3_w4_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w3_w4.tif" | % {$_.FullName}
-    $triple_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_w3_w4.tif" | % {$_.FullName}
-    $merged = $merged + $w2_labeled_set + $w3_labeled_set + $w4_labeled_set + $DAPI_labeled_set + $w2_w3_set +$w2_w4_set + $w3_w4_set + $triple_set
-
-    $w2_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $w3_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w3_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $w4_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $DAPI_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\DAPI_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $w2_w3_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_w3_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $w2_w4_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $w3_w4_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w3_w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $triple_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_w3_w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
-    $merged_cut = $merged_cut + $w2_cut_set + $w3_cut_set + $w4_cut_set + $DAPI_cut_set + $w2_w3_cut_set + $w2_w4_cut_set + $w3_w4_cut_set + $triple_cut_set
-
-}
-montage $merged -geometry +3+3 "$gdrive/live_single_channel_montage.tif"
-montage $merged_cut -geometry +3+3 "$gdrive/live_single_channel_cut_montage.tif"
-
-
-
