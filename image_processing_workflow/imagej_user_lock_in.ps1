@@ -84,8 +84,15 @@ if (Test-Path $site_id_dir_name) {
 
                 New-Item $site_id_dir_name -ItemType Directory
                 echo "Created new directory $site_id_dir_name"
+                mkdir "$site_id_dir_name\single_channel\cuts"
+                mkdir "$site_id_dir_name\single_channel_with_dapi\cuts"
+                mkdir "$site_id_dir_name\double_channel\cuts"
+                mkdir "$site_id_dir_name\double_channel_with_dapi\cuts"
+                mkdir "$site_id_dir_name\triple_channel\cuts"
+                mkdir "$site_id_dir_name\triple_channel_with_dapi\cuts"
                 $reprocess_check = 1
                 Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
+                ii "$HOME/experiments/$exp_id/$well_id/$site_id"
                 .\Applications\Fiji.app\ImageJ-win64.exe
 
                 } else{
@@ -103,8 +110,16 @@ if (Test-Path $site_id_dir_name) {
     } else {
 	    New-Item $site_id_dir_name -ItemType Directory
         echo "Created new directory $site_id_dir_name"
+        mkdir "$site_id_dir_name\single_channel\cuts"
+        mkdir "$site_id_dir_name\single_channel_with_dapi\cuts"
+        mkdir "$site_id_dir_name\double_channel\cuts"
+        mkdir "$site_id_dir_name\double_channel_with_dapi\cuts"
+        mkdir "$site_id_dir_name\triple_channel\cuts"
+        mkdir "$site_id_dir_name\triple_channel_with_dapi\cuts"
         $reprocess_check = 1
+        ii "$HOME/temp/$exp_id/$well_id/$site_id"
         Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
+        ii "$HOME/experiments/$exp_id/$well_id/$site_id"
         .\Applications\Fiji.app\ImageJ-win64.exe
     }
 } while ($reprocess_check -eq 0)

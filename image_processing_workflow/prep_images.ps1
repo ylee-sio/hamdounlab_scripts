@@ -155,37 +155,19 @@ rm -r $destination/Z*
 
 #$correct_wavelength_scheme_check = Read-Host -Prompt "Did this experiment use the standard wavelength configuration?"
 
-echo "`nThis version of prep_images and Hamdoun Lab specific Fiji/ImageJ macros can only handle a total of 5 wavelengths."
+#echo "`nThis version of prep_images and Hamdoun Lab specific Fiji/ImageJ macros can only handle a total of 5 wavelengths."
 
-echo "`nThis is the standard channel/wavelength configuration:"
-echo "w1: transmitted light"
-echo "w2: Cy5 (647nm)"
-echo "w3: TRITC (546nm)"
-echo "w4: FITC (488nm)"
-echo "w5: DAPI (405nm)"
+#echo "`nThis is the standard channel/wavelength configuration:"
+#echo "w1: transmitted light"
+#echo "w2: Cy5 (647nm)"
+#echo "w3: TRITC (546nm)"
+#echo "w4: FITC (488nm)"
+#echo "w5: DAPI (405nm)"
 
-$missing_wv_yn = Read-Host -Prompt "`nAre you missing any of these channels/wavelengths? (Enter y/n)"
-$standard_wv_yn = Read-Host -Prompt "`nHas this experiment been run in the standard configuration? (Enter y/n)"
+#$missing_wv_yn = Read-Host -Prompt "`nAre you missing any of these channels/wavelengths? (Enter y/n)"
+#$standard_wv_yn = Read-Host -Prompt "`nHas this experiment been run in the standard configuration? (Enter y/n)"
 
-if ($missing_yn -eq "y"){
-
-    
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#if ($missing_yn -eq "y"){}
 
 
 

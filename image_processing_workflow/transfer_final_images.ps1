@@ -4,12 +4,18 @@ $gdrive = "H:\Shared drives\hamdoun-lab\HL_official_expression_panel_reference_i
 # OneDrive path
 $odrive = "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images"
 
+# HL_RAID10
+$hl_raid10 = "D:\HL_official_expression_panel_reference_images"
+
 #experiment selection
 $exp_list = Get-ChildItem -Directory -Name $HOME/temp
 
 if ($exp_list.count -gt 1) {
     
-    echo "Available experiments IDs:"
+    $most_recent_exp = Get-ChildItem $HOME/temp -Directory | Sort-Object -Property -CreationTime | Select-Object -First 1  
+    $most_recent_exp_time = Get-ChildItem $HOME/temp -Directory | Sort-Object -Property -CreationTime | Select-Object -ExpandProperty CreationTime -First 1
+    echo "Most recent exp: $most_recent_exp at $most_recent_exp_time"
+    echo "All available experiments IDs:"
     echo " "
 
     foreach($i in 0..$exp_list.count){
@@ -30,8 +36,7 @@ if (Test-Path $exp_id_dir_name_gdrive) {
     Write-Host "$exp_id_dir_name_gdrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $exp_id_dir_name_gdrive -ItemType Directory
-        echo "Created new directory $exp_id_dir_name_gdrive"
+	    New-Item $exp_id_dir_name_gdrive -ItemType Directory > $null
     }
 
 $exp_id_dir_name_odrive = "$odrive/$exp_id"
@@ -39,16 +44,19 @@ if (Test-Path $exp_id_dir_name_odrive) {
     Write-Host "$exp_id_dir_name_odrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $exp_id_dir_name_odrive -ItemType Directory
-        echo "Created new directory $exp_id_dir_odrive"
+	    New-Item $exp_id_dir_name_odrive -ItemType Directory > $null
     }
 
 #well selection
 $well_id_list = Get-ChildItem -Directory -Name $HOME/temp/$exp_id
 
 if ($well_id_list.count -gt 1) {
-
-    echo "Available well IDs:"
+    
+    $most_recent_well = Get-ChildItem $HOME/temp -Directory | Sort-Object -Property -CreationTime | Select-Object -First 1  
+    $most_recent_well_time = Get-ChildItem $HOME/temp -Directory | Sort-Object -Property -CreationTime | Select-Object -Property CreationTime -First 1
+    echo "Most recent well: $most_recent_well at $most_recent_well_time"
+    echo "Most recent well: $most_recent_well at $most_recent_well_time"
+    echo "All available well IDs:"
     echo " "
 
     foreach($i in 0..$well_id_list.count){
@@ -74,8 +82,7 @@ if (Test-Path $well_id_dir_name_gdrive) {
     Write-Host "$well_id_dir_name_gdrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $well_id_dir_name_gdrive -ItemType Directory
-        echo "Created new directory $well_id_dir_name_gdrive"
+	    New-Item $well_id_dir_name_gdrive -ItemType Directory > $null
     }
 
 $well_id_dir_name_odrive = "$odrive/$exp_id/$complete_well_id"
@@ -83,8 +90,7 @@ if (Test-Path $well_id_dir_name_odrive) {
     Write-Host "$well_id_dir_name_odrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $well_id_dir_name_odrive -ItemType Directory
-        echo "Created new directory $well_id_dir_name_odrive"
+	    New-Item $well_id_dir_name_odrive -ItemType Directory > $null
     }
 
 #site selection
@@ -92,8 +98,13 @@ $site_id_list = Get-ChildItem -Directory -Name $HOME/temp/$exp_id/$well_id
 
 if ($site_id_list.count -gt 1) {
 
-    echo "Available site IDs:"
+    $most_recent_site = Get-ChildItem $HOME/temp -Directory | Sort-Object -Property -CreationTime | Select-Object -First 1  
+    $most_recent_site_time = Get-ChildItem $HOME/temp -Directory | Sort-Object -Property -CreationTime | Select-Object -siteandProperty CreationTime -First 1
+    echo "Most recent site: $most_recent_site at $most_recent_site_time"
+    echo "Most recent site: $most_recent_site at $most_recent_site_time"
+    echo "All available site IDs:"
     echo " "
+
 
     foreach($i in 0..$site_id_list.count){
         "[$i] " + $site_id_list[$i]
@@ -113,8 +124,7 @@ if (Test-Path $site_id_dir_name_gdrive) {
     Write-Host "$site_id_dir_name_gdrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $site_id_dir_name_gdrive -ItemType Directory
-        echo "Created new directory $site_id_dir_name_gdrive"
+	    New-Item $site_id_dir_name_gdrive -ItemType Directory > $null
     }
 
 $site_id_dir_name_odrive = "$odrive/$exp_id/$complete_well_id/$site_id"
@@ -122,66 +132,100 @@ if (Test-Path $site_id_dir_name_odrive) {
     Write-Host "$site_id_dir_name_odrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $site_id_dir_name_odrive -ItemType Directory
-        echo "Created new directory $site_id_dir_name_odrive"
+	    New-Item $site_id_dir_name_odrive -ItemType Directory > $null
+
     }
 
 # make basic_montages
-$image_dir = "$HOME/temp/temp_imagej_outputs_for_transfer"
-mkdir $image_dir/basic_montages
+$image_dir = "$HOME/temp/$exp_id/$well_id/$site_id"
+$single_channel_cuts_list = Get-ChildItem -File "$image_dir/single_channel/cuts/"
+$single_channel_cuts_path = "$image_dir/single_channel/cuts/*"
 
-montage $image_dir/basic_montages/single_channel/w2_labeled.tif $image_dir/basic_montages/single_channel/w3_labeled.tif $image_dir/basic_montages/single_channel/w4_labeled.tif $image_dir/basic_montages/single_channel/DAPI_labeled.tif -geometry +4+1 $image_dir/basic_montages/montages/single_channel_montage.tif
-montage $image_dir/basic_montages/single_channel/w2_cut_1.tif $image_dir/basic_montages/single_channel/w3_cut_1.tif $image_dir/basic_montages/single_channel/w4_cut_1.tif $image_dir/basic_montages/single_channel/DAPI_cut_1.tif -geometry +4+1 $image_dir/basic_montages/montages/single_channel_montage_cut_1.tif
-montage $image_dir/basic_montages/single_channel_with_dapi/w2_dapi.tif $image_dir/basic_montages/single_channel_with_dapi/w3_dapi.tif $image_dir/basic_montages/single_channel_with_dapi/w4_dapi.tif -geometry +3+1 $image_dir/basic_montages/montages/single_channel_with_dapi_montage.tif
-montage $image_dir/basic_montages/single_channel_with_dapi/w2_DAPI_cut_1.tif $image_dir/basic_montages/single_channel_with_dapi/w3_DAPI_cut_1.tif $image_dir/basic_montages/single_channel_with_dapi/w4_DAPI_cut_1.tif -geometry +3+1 $image_dir/basic_montages/montages/single_channel_with_dapi_montage_DAPI_cut_1.tif
-montage $image_dir/basic_montages/double_channel/w2_w3.tif $image_dir/basic_montages/double_channel/w2_w4.tif $image_dir/basic_montages/double_channel/w3_w4.tif -geometry +3+1 $image_dir/basic_montages/montages/double_channel_montage.tif
-montage $image_dir/basic_montages/double_channel/w2_w3_cut_1.tif $image_dir/basic_montages/double_channel/w2_w4_cut_1.tif $image_dir/basic_montages/double_channel/w3_w4_cut_1.tif -geometry +3+1 $image_dir/basic_montages/montages/double_channel_montage_cut_1.tif
-montage $image_dir/basic_montages/double_channel_with_dapi/w2_w3_DAPI.tif $image_dir/basic_montages/double_channel_with_dapi/w2_w4_DAPI.tif $image_dir/basic_montages/double_channel_with_dapi/w3_w4_DAPI.tif -geometry +3+1 $image_dir/basic_montages/montages/double_channel_with_dapi_montage_DAPI.tif
-montage $image_dir/basic_montages/double_channel_with_dapi/w2_w3_DAPI_cut_1.tif $image_dir/basic_montages/double_channel_with_dapi/w2_w4_DAPI_cut_1.tif $image_dir/basic_montages/double_channel_with_dapi/w3_w4_DAPI_cut_1.tif -geometry +3+1 $image_dir/basic_montages/montages/double_channel_with_dapi_montage_DAPI_cut_1.tif
+if ($single_channel_cuts_list.count -gt 1) {
+    
+    echo "A window displaying all available single channel cuts for $site_id in $well_id in $exp_id."
+    echo "`nScroll through the photos with your arrow keys. Then come back to Powershell using alt+Tab" 
+    echo "`nWhen you have decided on the cut for that site, select the cut you wish to have displayed in the  preview panel by entering 'cut_#' in the following prompts."
+    echo "Other channel combos for the selected cut will be selected based on the single channel cut selection."
 
-mkdir -p "$HOME/temp/$exp_id/$complete_well_id/$site_id"
-cp -r "$HOME/temp/temp_imagej_outputs_for_transfer/*"  "$HOME/temp/$exp_id/$complete_well_id/$site_id/"
+    echo " "
+    Read-Host -Prompt "Press any key to begin."
+    
+    ii $single_channel_cuts_path
+    $single_channel_cuts_choice = Read-Host -Prompt "Select one desired representative cut for preview panel: (cut_#) "
+    taskkill /f /im dllhost.exe > $null
+
+} else {
+
+    echo "No cuts available. Not making preview panel ready cuts."
+}
+
+
+mkdir $image_dir/panels > $null
+
+montage $image_dir/single_channel/w2_labeled.tif $image_dir/single_channel/w3_labeled.tif $image_dir/single_channel/w4_labeled.tif $image_dir/single_channel/DAPI_labeled.tif -geometry +4+1 $image_dir/panels/single_channel_montage.tif
+montage $image_dir/single_channel/cuts/w2_$single_channel_cuts_choice.tif $image_dir/single_channel/cuts/w3_$single_channel_cuts_choice.tif $image_dir/single_channel/cuts/w4_$single_channel_cuts_choice.tif $image_dir/single_channel/cuts/DAPI_$single_channel_cuts_choice.tif -geometry +4+1 $image_dir/panels/single_channel_montage_$single_channel_cuts_choice.tif
+montage $image_dir/single_channel_with_dapi/w2_dapi.tif $image_dir/single_channel_with_dapi/w3_dapi.tif $image_dir/single_channel_with_dapi/w4_dapi.tif -geometry +3+1 $image_dir/panels/single_channel_with_dapi_montage.tif
+montage $image_dir/single_channel_with_dapi/cuts/w2_DAPI_$single_channel_cuts_choice.tif $image_dir/single_channel_with_dapi/cuts/w3_DAPI_$single_channel_cuts_choice.tif $image_dir/single_channel_with_dapi/cuts/w4_DAPI_$single_channel_cuts_choice.tif -geometry +3+1 $image_dir/panels/single_channel_with_dapi_montage_DAPI_$single_channel_cuts_choice.tif
+montage $image_dir/double_channel/w2_w3.tif $image_dir/double_channel/w2_w4.tif $image_dir/double_channel/w3_w4.tif -geometry +3+1 $image_dir/panels/double_channel_montage.tif
+montage $image_dir/double_channel/cuts/w2_w3_$single_channel_cuts_choice.tif $image_dir/double_channel/cuts/w2_w4_$single_channel_cuts_choice.tif $image_dir/double_channel/cuts/w3_w4_$single_channel_cuts_choice.tif -geometry +3+1 $image_dir/panels/double_channel_montage_$single_channel_cuts_choice.tif
+montage $image_dir/double_channel_with_dapi/w2_w3_DAPI.tif $image_dir/double_channel_with_dapi/w2_w4_DAPI.tif $image_dir/double_channel_with_dapi/w3_w4_DAPI.tif -geometry +3+1 $image_dir/panels/double_channel_with_dapi_montage_DAPI.tif
+montage $image_dir/double_channel_with_dapi/cuts/w2_w3_DAPI_$single_channel_cuts_choice.tif $image_dir/double_channel_with_dapi/cuts/w2_w4_DAPI_$single_channel_cuts_choice.tif $image_dir/double_channel_with_dapi/cuts/w3_w4_DAPI_$single_channel_cuts_choice.tif -geometry +3+1 $image_dir/panels/double_channel_with_dapi_montage_DAPI_$single_channel_cuts_choice.tif
 
 $move_to_final_locations = Read-Host -Prompt "Ready to move session files to the Hamdoun Lab official in situ database? (Enter y to transfer files or n to exit.)"
     
 if ($move_to_final_locations -eq "y") {
-    cp -r  "$HOME/temp/$exp_id"  "$HOME/HL_official_expression_panel_reference_images"
-    mv "$HOME/temp/$exp_id"  "D:\HL_official_expression_panel_reference_images"
-    cp -r "$HOME/experiments/$exp_id/$well_id/$site_id" "$HOME/HL_official_expression_panel_reference_images/$exp_id/$complete_well_id/$site_id/raw_images"
-    $exit = Read-Host -Prompt "Press enter to exit."
+    # to odrive
+    cp -r "$HOME/temp/$exp_id/$well_id/$site_id/" "$odrive/$exp_id/$complete_well_id/$site_id/"
+    mkdir "$odrive/$exp_id/$complete_well_id/$site_id/raw_images"
+    cp -r "$HOME/experiments/$exp_id/$well_id/$site_id/*" "$odrive/$exp_id/$complete_well_id/$site_id/raw_images"
+
+    # to gdrive
+    cp -r "$HOME/temp/$exp_id/$well_id/$site_id/" "$gdrive/$exp_id/$complete_well_id/$site_id/"
+    mkdir "$gdrive/$exp_id/$complete_well_id/$site_id/raw_images"
+    cp -r "$HOME/experiments/$exp_id/$well_id/$site_id/*" "$gdrive/$exp_id/$complete_well_id/$site_id/raw_images"
+
+    # to HL_RAID10
+    mv "$HOME/temp/$exp_id/$well_id/$site_id/" "$hl_raid10/$exp_id/$complete_well_id/$site_id/"
+    mkdir "$$hl_raid10/$exp_id/$complete_well_id/$site_id/raw_images"
+    cp -r "$HOME/experiments/$exp_id/$well_id/$site_id/*" "$hl_raid10/$exp_id/$complete_well_id/$site_id/raw_images"
+    
+    
+    Read-Host -Prompt "Press any key to exit."
     }
 
-$available_exp_list =  Get-Childitem -Directory -Name "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\"
+$available_exp_list =  Get-Childitem -Directory -Name $gdrive
 $merged = @()
-$merged_cut_1 = @()
+$merged_cut = @()
 
-for ($i = 0; $i -lt $available_exp_list.length; $i++) {
+for ($i = 0; $i -lt $available_exp_list.count; $i++) {
     
     $current_exp_id = $available_exp_list[$i]
+    if ($i -lt $available_exp_list.count){$current_exp_id = $available_exp_list}
     
-    $w2_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_labeled.tif" | % {$_.FullName}
-    $w3_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_labeled.tif" | % {$_.FullName}
-    $w4_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w4_labeled.tif" | % {$_.FullName}
-    $DAPI_labeled_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\DAPI_labeled.tif" | % {$_.FullName}
-    $w2_w3_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3.tif" | % {$_.FullName}
-    $w2_w4_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w4.tif" | % {$_.FullName}
-    $w3_w4_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_w4.tif" | % {$_.FullName}
-    $triple_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3_w4.tif" | % {$_.FullName}
+    $w2_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_labeled.tif" | % {$_.FullName}
+    $w3_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w3_labeled.tif" | % {$_.FullName}
+    $w4_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w4_labeled.tif" | % {$_.FullName}
+    $DAPI_labeled_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\DAPI_labeled.tif" | % {$_.FullName}
+    $w2_w3_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_w3.tif" | % {$_.FullName}
+    $w2_w4_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_w4.tif" | % {$_.FullName}
+    $w3_w4_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w3_w4.tif" | % {$_.FullName}
+    $triple_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\w2_w3_w4.tif" | % {$_.FullName}
     $merged = $merged + $w2_labeled_set + $w3_labeled_set + $w4_labeled_set + $DAPI_labeled_set + $w2_w3_set +$w2_w4_set + $w3_w4_set + $triple_set
 
-    $w2_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_cut_1.tif" | % {$_.FullName}
-    $w3_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_cut_1.tif" | % {$_.FullName}
-    $w4_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w4_cut_1.tif" | % {$_.FullName}
-    $DAPI_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\DAPI_cut_1.tif" | % {$_.FullName}
-    $w2_w3_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3_cut_1.tif" | % {$_.FullName}
-    $w2_w4_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w4_cut_1.tif" | % {$_.FullName}
-    $w3_w4_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w3_w4_cut_1.tif" | % {$_.FullName}
-    $triple_cut_1_set = Get-Childitem -Path "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images\$current_exp_id\*\s1\*\w2_w3_w4_cut_1.tif" | % {$_.FullName}
-    $merged_cut_1 = $merged_cut_1 + $w2_cut_1_set + $w3_cut_1_set + $w4_cut_1_set + $DAPI_cut_1_set + $w2_w3_cut_1_set + $w2_w4_cut_1_set + $w3_w4_cut_1_set + $triple_cut_1_set
+    $w2_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $w3_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w3_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $w4_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $DAPI_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\DAPI_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $w2_w3_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_w3_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $w2_w4_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $w3_w4_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w3_w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $triple_cut_set = Get-Childitem -Path "$gdrive\$current_exp_id\*\s1\*\cuts\w2_w3_w4_$single_channel_cuts_choice.tif" | % {$_.FullName}
+    $merged_cut = $merged_cut + $w2_cut_set + $w3_cut_set + $w4_cut_set + $DAPI_cut_set + $w2_w3_cut_set + $w2_w4_cut_set + $w3_w4_cut_set + $triple_cut_set
 
 }
-montage $merged -geometry +3+3 "$HOME/HL_official_expression_panel_reference_images/live_single_channel_montage.tif"
-montage $merged_cut_1 -geometry +3+3 "$HOME/HL_official_expression_panel_reference_images/live_single_channel_cut_1_montage.tif"
+montage $merged -geometry +3+3 "$gdrive/live_single_channel_montage.tif"
+montage $merged_cut -geometry +3+3 "$gdrive/live_single_channel_cut_montage.tif"
 
 
 
