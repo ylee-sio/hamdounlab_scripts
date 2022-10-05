@@ -1,7 +1,7 @@
 Set-Alias -Name prep_images -Value ./hamdounlab_scripts/image_processing_workflow/prep_images.ps1
 Set-Alias -Name transfer_final_images -Value ./hamdounlab_scripts/image_processing_workflow/transfer_final_images.ps1
 Set-Alias -Name cleanup_images -Value ./hamdounlab_scripts/image_processing_workflow/cleanup_images.ps1
-Set-Alias -Name imagej -Value .\Applications\Fiji.app\ImageJ-win64.exe
+Set-Alias -Name imagej -Value ./hamdounlab_scripts/image_processing_workflow/imagej_user_lock_in.ps1
 Set-Alias -Name setup_image_processing_pipeline -Value ./hamdounlab_scripts/image_processing_workflow/setup.ps1
 
 
