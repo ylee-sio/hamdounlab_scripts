@@ -1,5 +1,5 @@
 ﻿# Google Drive path to HL_official_expression_panel_reference_images
-$gdrive = "H:\Shared drives\hamdoun-lab\HL_official_expression_panel_reference_images"
+$gdrive = "I:\Shared drives\hamdoun-lab\HL_official_expression_panel_reference_images"
 
 # OneDrive path
 $odrive = "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images"
@@ -36,7 +36,7 @@ if (Test-Path $exp_id_dir_name_gdrive) {
     Write-Host "$exp_id_dir_name_gdrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $exp_id_dir_name_gdrive -ItemType Directory > $null
+	    New-Item $exp_id_dir_name_gdrive -ItemType Directory
     }
 
 $exp_id_dir_name_odrive = "$odrive/$exp_id"
@@ -44,7 +44,7 @@ if (Test-Path $exp_id_dir_name_odrive) {
     Write-Host "$exp_id_dir_name_odrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $exp_id_dir_name_odrive -ItemType Directory > $null
+	    New-Item $exp_id_dir_name_odrive -ItemType Directory
     }
 
 #well selection
@@ -82,7 +82,7 @@ if (Test-Path $well_id_dir_name_gdrive) {
     Write-Host "$well_id_dir_name_gdrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $well_id_dir_name_gdrive -ItemType Directory > $null
+	    New-Item $well_id_dir_name_gdrive -ItemType Directory
     }
 
 $well_id_dir_name_odrive = "$odrive/$exp_id/$complete_well_id"
@@ -90,7 +90,7 @@ if (Test-Path $well_id_dir_name_odrive) {
     Write-Host "$well_id_dir_name_odrive already exists. Using existing directory."
     echo ""
     } else {
-	    New-Item $well_id_dir_name_odrive -ItemType Directory > $null
+	    New-Item $well_id_dir_name_odrive -ItemType Directory
     }
 
 #site selection
@@ -177,17 +177,17 @@ $move_to_final_locations = Read-Host -Prompt "Ready to move session files to the
 if ($move_to_final_locations -eq "y") {
     # to odrive
     cp -r "$HOME/temp/$exp_id/$well_id/$site_id/" "$odrive/$exp_id/$complete_well_id/$site_id/"
-    mkdir "$odrive/$exp_id/$complete_well_id/$site_id/raw_images"
+    mkdir -p "$odrive/$exp_id/$complete_well_id/$site_id/raw_images"
     cp -r "$HOME/experiments/$exp_id/$well_id/$site_id/*" "$odrive/$exp_id/$complete_well_id/$site_id/raw_images"
 
     # to gdrive
     cp -r "$HOME/temp/$exp_id/$well_id/$site_id/" "$gdrive/$exp_id/$complete_well_id/$site_id/"
-    mkdir "$gdrive/$exp_id/$complete_well_id/$site_id/raw_images"
+    mkdir -p "$gdrive/$exp_id/$complete_well_id/$site_id/raw_images"
     cp -r "$HOME/experiments/$exp_id/$well_id/$site_id/*" "$gdrive/$exp_id/$complete_well_id/$site_id/raw_images"
 
     # to HL_RAID10
     mv "$HOME/temp/$exp_id/$well_id/$site_id/" "$hl_raid10/$exp_id/$complete_well_id/$site_id/"
-    mkdir "$$hl_raid10/$exp_id/$complete_well_id/$site_id/raw_images"
+    mkdir -p "$hl_raid10/$exp_id/$complete_well_id/$site_id/raw_images"
     cp -r "$HOME/experiments/$exp_id/$well_id/$site_id/*" "$hl_raid10/$exp_id/$complete_well_id/$site_id/raw_images"
     
     

@@ -384,34 +384,35 @@ macro "Macro 15 [Z]"{
 // Step 1 
 macro "Macro 15 [a]" {
 
+// distance = 870 for level 2 binning, 1740 for level 1 binning
 selectWindow("w1");
-makeLine(0, 116, 870, 116);
-run("Set Scale...", "distance=870 known=550 unit=uM global");
-run("Scale Bar...", "width=50 height=50 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+makeLine(0, 116, 1740, 116);
+run("Set Scale...", "distance=1740 known=550 unit=uM font=30 width=100 global");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 
 selectWindow("w2");
 run("Magenta");
 run("Brightness/Contrast...");
 run("Enhance Contrast", "saturated=0.35");
-run("Scale Bar...", "width=50 height=50 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 
 selectWindow("w3");
 run("Yellow");
 run("Brightness/Contrast...");
 run("Enhance Contrast", "saturated=0.35");
-run("Scale Bar...", "width=50 height=50 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 
 selectWindow("w4");
 run("Green");
 run("Brightness/Contrast...");
 run("Enhance Contrast", "saturated=0.35");
-run("Scale Bar...", "width=50 height=50 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 
 selectWindow("w5");
 run("Cyan");
 run("Brightness/Contrast...");
 run("Enhance Contrast", "saturated=0.35");
-run("Scale Bar...", "width=50 height=50 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 }
 
 // Saving steps for whole-site single z projected channel images
@@ -421,199 +422,199 @@ macro "Macro 16 [b]" {
 // w2 saving sequence
 selectWindow("MAX_w2");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w2.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/w2.tif");
 run("16-bit");
 run("Magenta");
 selectWindow("MAX_w2");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(w2_text, 15, 30);
+setFont("SansSerif", 50, "antialiased");
+Overlay.drawString(w2_text, 50, 100);
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w2_labeled.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/w2_labeled.tif");
 
 // w3 saving sequence
 selectWindow("MAX_w3");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w3.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/w3.tif");
 run("16-bit");
 run("Yellow");
 selectWindow("MAX_w3");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(w3_text, 15, 30);
+setFont("SansSerif", 50, "antialiased");
+Overlay.drawString(w3_text, 50, 100);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w3_labeled.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/w3_labeled.tif");
 
 // w4 saving sequence
 selectWindow("MAX_w4");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w4.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/w4.tif");
 run("16-bit");
 run("Green");
 selectWindow("MAX_w4");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(w4_text, 15, 30);
+setFont("SansSerif", 50, "antialiased");
+Overlay.drawString(w4_text, 50, 100);
 run("Colors...", "foreground=green, background=green, selection=green");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w4_labeled.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/w4_labeled.tif");
 
 // w5 saving sequence
 selectWindow("MAX_w5");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/DAPI.tif");
 run("16-bit");
 run("Cyan");
 selectWindow("MAX_w5");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(DAPI_text, 15, 30);
+setFont("SansSerif", 50, "antialiased");
+Overlay.drawString(DAPI_text, 50, 100);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/DAPI_labeled.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/DAPI_labeled.tif");
 
 // w2_DAPI saving sequence
 run("Merge Channels...", "c6=w2.tif c5=DAPI.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=25 height=50 thickness=3 font=25 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 50, 100);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 45);
+drawString(DAPI_text, 50, 160);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel_with_dapi/w2_DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel_with_dapi/w2_DAPI.tif");
 
 // w3_DAPI saving sequence
 run("Merge Channels...", "c7=w3.tif c5=DAPI.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 30);
+drawString(w3_text, 50, 100);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 45);
+drawString(DAPI_text, 50, 160);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel_with_dapi/w3_DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel_with_dapi/w3_DAPI.tif");
 
 // w4_DAPI saving sequence
 run("Merge Channels...", "c2=w4.tif c5=DAPI.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=25 height=50 thickness=3 font=25 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 30);
+drawString(w4_text, 50, 100);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 45);
+drawString(DAPI_text, 50, 160);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel_with_dapi/w4_DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel_with_dapi/w4_DAPI.tif");
 
 run("Merge Channels...", "c6=w2.tif c7=w3.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 50, 100);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 50, 160);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel/w2_w3.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel/w2_w3.tif");
 
 run("Merge Channels...", "c6=w2.tif c2=w4.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 50, 100);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 50, 160);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel/w2_w4.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel/w2_w4.tif");
 
 run("Merge Channels...", "c7=w3.tif c2=w4.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 30);
+drawString(w3_text, 50, 100);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 50, 160);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel/w3_w4.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel/w3_w4.tif");
 
 run("Merge Channels...", "c6=w2.tif c7=w3.tif c5=DAPI.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 50, 100);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 50, 160);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 60);
+drawString(DAPI_text, 50, 220);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel_with_dapi/w2_w3_DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel_with_dapi/w2_w3_DAPI.tif");
 
 run("Merge Channels...", "c6=w2.tif c2=w4.tif c5=DAPI.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 50, 100);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 50, 160);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 60);
+drawString(DAPI_text, 50, 220);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel_with_dapi/w2_w4_DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel_with_dapi/w2_w4_DAPI.tif");
 
 run("Merge Channels...", "c7=w3.tif c2=w4.tif c5=DAPI.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 30);
+drawString(w3_text, 50, 100);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 50, 160);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 60);
+drawString(DAPI_text, 50, 220);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel_with_dapi/w3_w4_DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel_with_dapi/w3_w4_DAPI.tif");
 
 // triple channel
 run("Merge Channels...", "c6=w2.tif c7=w3.tif c2=w4.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 50, 100);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 50, 160);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 60);
+drawString(w4_text, 50, 220);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/triple_channel/w2_w3_w4.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/triple_channel/w2_w3_w4.tif");
 
 run("Merge Channels...", "c6=w2.tif c7=w3.tif c2=w4.tif c5=DAPI.tif create keep");
 run("RGB Color");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=100 height=50 thickness=6 font=50 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 50, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 50, 100);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 50, 160);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 60);
+drawString(w4_text, 50, 220);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 75);
+drawString(DAPI_text, 50, 280);
 run("Flatten");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/triple_channel_with_dapi/w2_w3_w4_DAPI.tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/triple_channel_with_dapi/w2_w3_w4_DAPI.tif");
 
 }
 
@@ -623,21 +624,21 @@ n = 1
 answer = "y";
 do {
 
-newImage("w2_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w3_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w4_polygon_cut", "RGB black", 300, 300, 1);
-newImage("DAPI_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w2_DAPI_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w3_DAPI_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w4_DAPI_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w2_w3_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w2_w4_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w3_w4_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w2_w3_w4_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w2_w3_DAPI_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w2_w4_DAPI_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w3_w4_DAPI_polygon_cut", "RGB black", 300, 300, 1);
-newImage("w2_w3_w4_DAPI_polygon_cut", "RGB black", 300, 300, 1);
+newImage("w2_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w3_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w4_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w2_DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w3_DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w4_DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w2_w3_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w2_w4_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w3_w4_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w2_w3_w4_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w2_w3_DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w2_w4_DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w3_w4_DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
+newImage("w2_w3_w4_DAPI_polygon_cut", "RGB black", bin_pix_num, bin_pix_num, 1);
 
 setTool("polygon");
 selectWindow("MAX_w5");
@@ -650,15 +651,15 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(w2_text, 15, 30);
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
+Overlay.drawString(w2_text, 30, 60);
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w2_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/cuts/w2_cut_" + n + ".tif");
 run("16-bit");
 run("Magenta");
 
@@ -668,15 +669,15 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w3_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(w3_text, 15, 30);
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
+Overlay.drawString(w3_text, 30, 60);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w3_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/cuts/w3_cut_" + n + ".tif");
 run("16-bit");
 run("Yellow");
 
@@ -686,15 +687,15 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w4_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(w4_text, 15, 30);
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
+Overlay.drawString(w4_text, 30, 60);
 run("Colors...", "foreground=green, background=green, selection=green");
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/w4_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/cuts/w4_cut_" + n + ".tif");
 run("16-bit");
 run("Green");
 
@@ -704,15 +705,15 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
-Overlay.drawString(DAPI_text, 15, 30);
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
+Overlay.drawString(DAPI_text, 30, 60);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel/DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel/cuts/DAPI_cut_" + n + ".tif");
 run("16-bit");
 run("Cyan");
 
@@ -722,17 +723,17 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 30, 60);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 45);
+drawString(DAPI_text, 30, 100);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel_with_dapi/w2_DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel_with_dapi/cuts/w2_DAPI_cut_" + n + ".tif");
 
 // w3_DAPI cut
 selectWindow("w3_DAPI.tif");
@@ -740,17 +741,17 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w3_DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 30);
+drawString(w3_text, 30, 60);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 45);
+drawString(DAPI_text, 30, 100);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel_with_dapi/w3_DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel_with_dapi/cuts/w3_DAPI_cut_" + n + ".tif");
 
 // w4_DAPI.tif
 selectWindow("w4_DAPI.tif");
@@ -758,17 +759,17 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w4_DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 30);
+drawString(w4_text, 30, 60);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 45);
+drawString(DAPI_text, 30, 100);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/single_channel_with_dapi/w4_DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/single_channel_with_dapi/cuts/w4_DAPI_cut_" + n + ".tif");
 
 // w2_w3.tif
 selectWindow("w2_w3.tif");
@@ -776,17 +777,17 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_w3_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 30, 60);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 30, 100);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel/w2_w3_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel/cuts/w2_w3_cut_" + n + ".tif");
 
 // w2_w4.tif
 selectWindow("w2_w4.tif");
@@ -794,17 +795,17 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_w4_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 30, 60);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 30, 100);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel/w2_w4_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel/cuts/w2_w4_cut_" + n + ".tif");
 
 // w3_w4.tif
 selectWindow("w3_w4.tif");
@@ -812,17 +813,17 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w3_w4_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 30);
+drawString(w3_text, 30, 60);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 30, 100);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel/w3_w4_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel/cuts/w3_w4_cut_" + n + ".tif");
 
 // w2_w3_w4.tif
 selectWindow("w2_w3_w4.tif");
@@ -830,19 +831,19 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_w3_w4_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 30, 60);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 30, 100);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 60);
+drawString(w4_text, 30, 140);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/triple_channel/w2_w3_w4_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/triple_channel/cuts/w2_w3_w4_cut_" + n + ".tif");
 
 // w2_w3_DAPI.tif
 selectWindow("w2_w3_DAPI.tif");
@@ -850,19 +851,19 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_w3_DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 30, 60);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 30, 100);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 60);
+drawString(DAPI_text, 30, 140);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel_with_dapi/w2_w3_DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel_with_dapi/cuts/w2_w3_DAPI_cut_" + n + ".tif");
 
 // w2_w4_DAPI.tif
 selectWindow("w2_w4_DAPI.tif");
@@ -870,19 +871,19 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_w4_DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 30, 60);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 30, 100);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 60);
+drawString(DAPI_text, 30, 140);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel_with_dapi/w2_w4_DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel_with_dapi/cuts/w2_w4_DAPI_cut_" + n + ".tif");
 
 // w3_w4_DAPI.tif
 selectWindow("w3_w4_DAPI.tif");
@@ -890,19 +891,19 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w3_w4_DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 30);
+drawString(w3_text, 30, 60);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 45);
+drawString(w4_text, 30, 100);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 60);
+drawString(DAPI_text, 30, 140);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/double_channel_with_dapi/w3_w4_DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/double_channel_with_dapi/cuts/w3_w4_DAPI_cut_" + n + ".tif");
 
 // w2_w3_w4_DAPI.tif
 selectWindow("w2_w3_w4_DAPI.tif");
@@ -910,28 +911,28 @@ makeSelection("polygon", xpoints, ypoints);
 run("Copy");
 selectWindow("w2_w3_w4_DAPI_polygon_cut");
 run("Paste");
-makeOval(25, 25, 260, 260);
+makeOval(75, 100, 650, 650);
 waitForUser("Waiting for user to rotate selection. Use Image > Transform > Rotate...");
-run("Scale Bar...", "width=50 height=125 thickness=2 font=14 color=White background=None location=[Lower Right] horizontal bold overlay");
-setFont("SansSerif", 14, "antialiased");
+run("Scale Bar...", "width=50 height=50 thickness=3 font=35 color=White background=None location=[Lower Right] horizontal bold overlay");
+setFont("SansSerif", 35, "antialiased");
 run("Colors...", "foreground=magenta, background=magenta, selection=magenta");
-drawString(w2_text, 15, 30);
+drawString(w2_text, 30, 60);
 run("Colors...", "foreground=yellow, background=yellow, selection=yellow");
-drawString(w3_text, 15, 45);
+drawString(w3_text, 30, 100);
 run("Colors...", "foreground=green, background=green, selection=green");
-drawString(w4_text, 15, 60);
+drawString(w4_text, 30, 140);
 run("Colors...", "foreground=cyan, background=cyan, selection=cyan");
-drawString(DAPI_text, 15, 75);
+drawString(DAPI_text, 30, 180);
 run("Flatten");
 run("RGB Color");
-saveAs("Tiff", getDirectory("home") + "OneDrive - UC San Diego/temp/temp_imagej_outputs_for_transfer/triple_channel_with_dapi/w2_w3_w4_DAPI_cut_" + n + ".tif");
+saveAs("Tiff", getDirectory("home") + "temp/" + w5_text + "/" + w6_text + "/" + w7_text  + "/triple_channel_with_dapi/cuts/w2_w3_w4_DAPI_cut_" + n + ".tif");
 
 answer = getString("Select more individual animals/samples? (Enter y or n; Default is n) ", "n");
 
 	if (answer == "y") {
 		n = n+1;
 		close("*cut*");
-	}
+	} else {run("Quit");}
 } while (answer == "y");
 }
 
@@ -940,10 +941,12 @@ macro "Close all [D]" {
 	run("Quit");
 }
 
-// var for_hcr = getString("Is this session for processing HCR samples? (Enter y or n; Default is n) ", "n");
-
 
 var w2_text = getString("What should be the label for w2 (gene, antibody, dye, etc.)? ", "");
 var w3_text = getString("What should be the label for w3 (gene, antibody, dye, etc.)? ", "");
 var w4_text = getString("What should be the label for w4 (gene, antibody, dye, etc.)? ", "");
+var w5_text = getString("Enter the exact experiment ID ", "");
+var w6_text = getString("Enter the exact well ID ", "");
+var w7_text = getString("Enter the exact site ID ", "");
+var bin_pix_num = 800;
 var DAPI_text = "Hoechst 33342";

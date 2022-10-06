@@ -1,6 +1,6 @@
 ﻿#experiment selection
 $exp_list = Get-ChildItem -Directory -Name experiments
-$exp_list_length = $exp_list.Length-1
+$exp_list_length = $exp_list.Count-1
 
 echo "Available experiments IDs:"
 echo " "
@@ -8,12 +8,20 @@ echo " "
 if ($exp_list.count -gt 1) {
 foreach($i in 0..$exp_list_length){
 "[$i] " + $exp_list[$i]
+
 }
-} else {"[0] " + $exp_list[0]}
-    
+
 echo " "
 $exp_id_choice = Read-Host -Prompt "Select experiment ID"
 $exp_id = $exp_list[$exp_id_choice]
+
+
+} else {
+echo "Only one experiment available. Selecting $exp_list"
+$exp_id = $exp_list
+}
+
+
 
 $exp_id_dir_name = "$HOME/temp/$exp_id"
 if (Test-Path $exp_id_dir_name) {
@@ -27,20 +35,23 @@ if (Test-Path $exp_id_dir_name) {
 
 #well selection
 $well_id_list = Get-ChildItem -Directory -Name experiments/$exp_id
-$well_id_list_length = $well_id_list.Length-1
+$well_id_list_length = $well_id_list.Count
 
+if ($well_id_list.count -gt 1) {
 echo "Available well IDs:"
 echo " "
 
-if ($well_id_list.count -gt 1) {
 foreach($i in 0..$well_id_list_length){
 "[$i] " + $well_id_list[$i]
-}
-} else {"[0] " + $well_id_list[0]}
-    
-echo " "
+
+}echo " "
 $well_id_choice = Read-Host -Prompt "Select well ID"
 $well_id = $well_id_list[$well_id_choice]
+} else {echo "Only one well available. Selecting $well_id_list"
+$well_id = $well_id_list}
+
+
+
 
 $well_id_dir_name = "$HOME/temp/$exp_id/$well_id"
 if (Test-Path $well_id_dir_name) {
@@ -54,8 +65,8 @@ if (Test-Path $well_id_dir_name) {
 #site_selection
 $reprocess_check = 0
 do{
-$site_id_list = Get-ChildItem -Directory -Name experiments/$exp_id/$well_id
-$site_id_list_length = $site_id_list.Length-1
+$site_id_list = Get-ChildItem -Directory -Name $HOME/experiments/$exp_id/$well_id
+$site_id_list_length = $site_id_list.Count-1
 
 echo "Available site IDs:"
 echo " "
@@ -63,15 +74,16 @@ echo " "
 if ($site_id_list.count -gt 1) {
 foreach($i in 0..$site_id_list_length){
 "[$i] " + $site_id_list[$i]
-}
-} else {"[0] " + $site_id_list[0]}
-    
-echo " "
 
+}echo " "
 $site_id_choice = Read-Host -Prompt "Select site ID"
 $site_id = $site_id_list[$site_id_choice]
 
+} else {echo "Only one site available. Selecting $site_list"
+$site_id = $site_list}
+    
 $site_id_dir_name = "$HOME/temp/$exp_id/$well_id/$site_id"
+
 if (Test-Path $site_id_dir_name) {
     $reprocess_site_1 = Read-Host -Prompt "It looks like you already processed this site in $well_id, $exp_id. Do you want to reprocess this $site_id ? (Enter y/n)"
     
@@ -91,6 +103,27 @@ if (Test-Path $site_id_dir_name) {
                 mkdir "$site_id_dir_name\triple_channel\cuts"
                 mkdir "$site_id_dir_name\triple_channel_with_dapi\cuts"
                 $reprocess_check = 1
+
+                $wv_quickfix = Read-Host -Prompt "Do you need wavelength quick fix? (Enter y/n)"
+
+                if ($wv_quickfix -eq "y"){
+
+                    cd "$HOME/experiments/$exp_id/$well_id/$site_id"
+
+                    mv w2 temp_w
+                    mv w1 w2
+                    mv w3 w1
+                    mv temp_w w3
+                    mv w1 temp_w
+                    mv w4 w1
+                    mv temp_w w4
+                    mkdir w5
+                    cp -r w1/* w5
+                    cd $HOME
+
+}
+
+
                 Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
                 ii "$HOME/experiments/$exp_id/$well_id/$site_id"
                 .\Applications\Fiji.app\ImageJ-win64.exe
@@ -117,11 +150,29 @@ if (Test-Path $site_id_dir_name) {
         mkdir "$site_id_dir_name\triple_channel\cuts"
         mkdir "$site_id_dir_name\triple_channel_with_dapi\cuts"
         $reprocess_check = 1
-        ii "$HOME/temp/$exp_id/$well_id/$site_id"
+        #ii "$HOME/temp/$exp_id/$well_id/$site_id"
+        $wv_quickfix = Read-Host -Prompt "Do you need wavelength quick fix? (Enter y/n)"
+
+        if ($wv_quickfix -eq "y"){
+
+            cd "$HOME/experiments/$exp_id/$well_id/$site_id"
+
+            mv w2 temp_w
+            mv w1 w2
+            mv w3 w1
+            mv temp_w w3
+            mv w1 temp_w
+            mv w4 w1
+            mv temp_w w4
+            mkdir w5
+            cp -r w1/* w5
+            cd $HOME
+
+}
+
         Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
         ii "$HOME/experiments/$exp_id/$well_id/$site_id"
         .\Applications\Fiji.app\ImageJ-win64.exe
     }
 } while ($reprocess_check -eq 0)
-
 
