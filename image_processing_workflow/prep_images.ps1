@@ -106,11 +106,11 @@ if ($run_id_list_length -gt 1){
 
 $source_dir = "\\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date\$run_id\TimePoint_1"
 mkdir -p experiments/$new_exp_analysis_folder
-$destination = "$HOME/experiments/$new_exp_analysis_folder"
+$destination = "J:/$user_id/experiments/$new_exp_analysis_folder"
 
 echo "********** STARTING MULTITHREADED COPY FROM SERVER TO LOCAL **********"
 
-robocopy $source_dir $destination /MT:16 /S /E
+robocopy $source_dir $destination /MT:8 /S /E
 rm -r $destination/*.tif
 rm -r $destination/*/*thumb*
 
