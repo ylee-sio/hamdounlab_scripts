@@ -1,5 +1,5 @@
 ﻿# Google Drive path to HL_official_expression_panel_reference_images
-$gdrive = "I:\Shared drives\hamdoun-lab\HL_official_expression_panel_reference_images"
+$gdrive = "G:\Shared drives\hamdoun-lab\HL_official_expression_panel_reference_images"
 
 # OneDrive path
 $odrive = "$HOME\OneDrive - UC San Diego\HL_official_expression_panel_reference_images"

@@ -1,4 +1,7 @@
 ﻿# get, display, and record user_id choice
+$nthreads = Read-Host -Prompt "How many threads to use for copy and transfer?"
+
+
 $user_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\
 $user_list_length = $user_list.Count
 echo "Available users:"
@@ -13,7 +16,7 @@ $user_id = $user_list[$user_id_choice]
 # get, display, and record exp_id choice
  $exp_id_list = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\
  $exp_id_list_length = $exp_id_list.Count
-if ($exp_id_list_length -gt 1){
+if ($exp_id_list_length -gt 0){
     
 
     echo "CURRENT LOCAL STORAGE STATUS: "
@@ -37,6 +40,12 @@ if ($exp_id_list_length -gt 1){
     echo "`nNOTE: For every 50GB of image data, expect to wait between 5-10 minutes."
     $exp_id_choice = Read-Host -Prompt "Select number in experiment ID list"
     $exp_id = $exp_id_list[$exp_id_choice]
+
+    if ($exp_id_list_length -eq 1) {
+    
+    $exp_id = $exp_id_list
+
+    }
 
     if ($exp_id.length -ne 16){
         echo ""
@@ -65,7 +74,7 @@ if ($exp_id_list_length -gt 1){
         }
         
         $revised_exp_id = $exp_revised_date + "-" + $exp_revised_num
-        $new_exp_analysis_folder = $revised_exp_id + "_analysis"
+        $new_exp_analysis_folder = $revised_exp_id
     } else {$new_exp_analysis_folder = $exp_id}
 
 } else {$exp_id = Get-ChildItem -Directory -Name \\Ixm-5155033\f\FileServer\$user_id\*}
@@ -105,12 +114,12 @@ if ($run_id_list_length -gt 1){
 
 
 $source_dir = "\\Ixm-5155033\f\FileServer\$user_id\$exp_id\$run_date\$run_id\TimePoint_1"
-mkdir -p experiments/$new_exp_analysis_folder
+mkdir -p "J:/$user_id/experiments/$new_exp_analysis_folder"
 $destination = "J:/$user_id/experiments/$new_exp_analysis_folder"
 
 echo "********** STARTING MULTITHREADED COPY FROM SERVER TO LOCAL **********"
 
-robocopy $source_dir $destination /MT:8 /S /E
+robocopy $source_dir $destination /MT:$nthreads /S /E
 rm -r $destination/*.tif
 rm -r $destination/*/*thumb*
 

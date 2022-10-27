@@ -1,7 +1,10 @@
 ﻿$wv_list = @("w1", "w2", "w3", "w4", "w5")
 
+Get-ChildItem -Name -Directory J:\
+$user_id = Read-Host -Prompt "Select user ID"
+
 #experiment selection
-$exp_list = Get-ChildItem -Directory -Name J:\yl\experiments
+$exp_list = Get-ChildItem -Directory -Name J:\$user_id\experiments
 $exp_list_length = $exp_list.Count-1
 
 echo "Available experiments IDs:"
@@ -36,7 +39,7 @@ if (Test-Path $exp_id_dir_name) {
 
 
 #well selection
-$well_id_list = Get-ChildItem -Directory -Name J:\yl\experiments/$exp_id
+$well_id_list = Get-ChildItem -Directory -Name J:\$user_id\experiments/$exp_id
 $well_id_list_length = $well_id_list.Count
 
 if ($well_id_list.count -gt 1) {
@@ -67,7 +70,7 @@ if (Test-Path $well_id_dir_name) {
 #site_selection
 $reprocess_check = 0
 do{
-$site_id_list = Get-ChildItem -Directory -Name J:\yl\experiments/$exp_id/$well_id
+$site_id_list = Get-ChildItem -Directory -Name J:\$user_id\experiments/$exp_id/$well_id
 $site_id_list_length = $site_id_list.Count-1
 
 echo "Available site IDs:"
@@ -89,75 +92,100 @@ $site_id = $site_list}
 
 $wv_quickfix = Read-Host -Prompt "Do you need wavelength quick fix? (Enter y/n)"
                 if ($wv_quickfix -eq "y"){
+                    $original_test = "J:\$user_id\experiments/$exp_id/$well_id/original_w1_$site_id"
+                    if (Test-Path $original_test) {
+                            continue
+                            $wv_quickfix = "n"
+                    } else {
 
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/w1" "J:\yl\experiments/$exp_id/$well_id/$site_id/original_w1"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/w2" "J:\yl\experiments/$exp_id/$well_id/$site_id/original_w2"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/w3" "J:\yl\experiments/$exp_id/$well_id/$site_id/original_w3"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/w4" "J:\yl\experiments/$exp_id/$well_id/$site_id/original_w4"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/original_w1_$site_id"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/original_w2_$site_id"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/original_w3_$site_id"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/original_w4_$site_id"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w1/*" "J:\$user_id\experiments/$exp_id/$well_id/original_w1_$site_id"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w2/*" "J:\$user_id\experiments/$exp_id/$well_id/original_w2_$site_id"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w3/*" "J:\$user_id\experiments/$exp_id/$well_id/original_w3_$site_id"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w4/*" "J:\$user_id\experiments/$exp_id/$well_id/original_w4_$site_id"
 
                     $incorrect_w1_label = Read-Host -Prompt "What wavelength is your transmitted light channel labeled as (Enter w1, w2, or w3, etc.)? If you don't have one, enter 'na' "
                     if ($incorrect_w1_label -eq "na") {
                     $incorrect_w1_label = "w1"
-                        mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w1"
-                        cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w1_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w1"
+                        mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w1"
+                        cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w1_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w1"
                     } else {
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w1"
-                    mv "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w1_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w1"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w1"
+                    mv "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w1_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w1"
                     
                     }  
                     
                     $incorrect_w2_label = Read-Host -Prompt "What wavelength is your Cy5 (647nm) channel labeled as? (Enter w1, w2, or w3, etc.)? If you don't have one, enter 'na' "
                     if ($incorrect_w2_label -eq "na") {
                     $incorrect_w2_label = "w2"
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w2"
-                        cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w2_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w2"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w2"
+                        cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w2_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w2"
                     } else {
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w2"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w2_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w2/"}
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w2"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w2_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w2/"}
 
 
                     
                     $incorrect_w3_label = Read-Host -Prompt "What wavelength is your TRITC (546nm) channel labeled as? (Enter w1, w2, or w3, etc.)? If you don't have one, enter 'na' "
                     if ($incorrect_w3_label -eq "na") {
                     $incorrect_w3_label = "w3"
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w3"
-                        cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w3_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w3"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w3"
+                        cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w3_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w3"
                     } else {
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w3"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w3_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w3/"}
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w3"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w3_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w3/"}
 
 
 
                     $incorrect_w4_label = Read-Host -Prompt "What wavelength is your FITC (488nm) channel labeled as? (Enter w1, w2, or w3, etc.)? If you don't have one, enter 'na' "
                     if ($incorrect_w4_label -eq "na") {
                     $incorrect_w4_label = "w4"
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w4"
-                        cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w4_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w4"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w4"
+                        cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w4_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w4"
                     } else {
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w4"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w4_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w4/"}
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w4"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w4_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w4/"}
 
 
                     
                     $incorrect_w5_label = Read-Host -Prompt "What wavelength is your DAPI (405nm) channel labeled as? (Enter w1, w2, or w3, etc.)? If you don't have one, enter 'na' "
                     if ($incorrect_w5_label -eq "na") {
                     $incorrect_w5_label = "w5"
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w5"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w5_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w5"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w5" 
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w5"
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w5_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w5"
                     } else {
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w5"
-                    cp -r "J:\yl\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w5_label*" "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w5/"}
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w5" 
+                    cp -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/*/*$incorrect_w5_label*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w5/"}
 
-                    
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w1"
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w2"
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w3"
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w4"
+                    #rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w5"
 
-                    mkdir "J:\yl\experiments/$exp_id/$well_id/$site_id/w5" 
-                    mv "J:\yl\experiments/$exp_id/$well_id/$site_id/w5" "J:\yl\experiments/$exp_id/$well_id/$site_id/original_w5"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w1"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w2"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w3"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w4"
+                    mkdir "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w5"
 
-                    mv "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w1" "J:\yl\experiments/$exp_id/$well_id/$site_id/w1"
-                    mv "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w2" "J:\yl\experiments/$exp_id/$well_id/$site_id/w2"
-                    mv "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w3" "J:\yl\experiments/$exp_id/$well_id/$site_id/w3"
-                    mv "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w4" "J:\yl\experiments/$exp_id/$well_id/$site_id/w4"
-                    mv "J:\yl\experiments/$exp_id/$well_id/$site_id/temp_w5" "J:\yl\experiments/$exp_id/$well_id/$site_id/w5"
+                    mv "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w1/*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w1"
+                    mv "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w2/*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w2"
+                    mv "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w3/*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w3"
+                    mv "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w4/*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w4"
+                    mv "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w5/*" "J:\$user_id\experiments/$exp_id/$well_id/$site_id/w5"
+
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w1"
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w2"
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w3"
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w4"
+                    rm -r "J:\$user_id\experiments/$exp_id/$well_id/$site_id/temp_w5"
+
+                    }
 }
 
                 
@@ -193,11 +221,12 @@ if (Test-Path $site_id_dir_name) {
                     if ($binning -eq 2){
                 
                 Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
-            
-         .\Applications\bin_level_2\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w1/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w2/');  File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w5/'); var w2_text = '$gene_w2'; var w3_text = '$gene_w3'; var w4_text = '$gene_w4';var w5_text = '$exp_id'; var w6_text = '$complete_well_id'; var w7_text = '$site_id';"
-        } else {           Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
-            
-         .\Applications\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w1/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w2/');  File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w5/'); var w2_text = '$gene_w2'; var w3_text = '$gene_w3'; var w4_text = '$gene_w4';var w5_text = '$exp_id'; var w6_text = '$complete_well_id'; var w7_text = '$site_id';"}
+                echo "test hello 1"
+                .\Applications\bin_level_2\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w1/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w2/');  File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w5/'); var w2_text = '$gene_w2'; var w3_text = '$gene_w3'; var w4_text = '$gene_w4';var w5_text = '$exp_id'; var w6_text = '$complete_well_id'; var w7_text = '$site_id';"
+                    } else {
+                        Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
+                echo "test hello 2"
+                .\Applications\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w1/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w2/');  File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w5/'); var w2_text = '$gene_w2'; var w3_text = '$gene_w3'; var w4_text = '$gene_w4';var w5_text = '$exp_id'; var w6_text = '$complete_well_id'; var w7_text = '$site_id';"}
 
                 } else{
                     $reprocess_check = 0
@@ -212,7 +241,8 @@ if (Test-Path $site_id_dir_name) {
 
 
     } else {
-	    New-Item $site_id_dir_name -ItemType Directory
+	
+        New-Item $site_id_dir_name -ItemType Directory
         echo "Created new directory $site_id_dir_name"
         mkdir "$site_id_dir_name\single_channel\cuts"
         mkdir "$site_id_dir_name\single_channel_with_dapi\cuts"
@@ -223,17 +253,20 @@ if (Test-Path $site_id_dir_name) {
         $reprocess_check = 1
       
        $binning = Read-Host -Prompt "How has your image run been binned? (Enter 1 or 2)"
+    
                     if ($binning -eq 2){
-                
-                Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
-            
-         .\Applications\bin_level_2\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w1/');File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w2/');  File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w5/'); var w2_text = '$gene_w2'; var w3_text = '$gene_w3'; var w4_text = '$gene_w4';var w5_text = '$exp_id'; var w6_text = '$complete_well_id'; var w7_text = '$site_id';"
-        } else {           Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
-            
-         .\Applications\bin_level_2\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w1/');File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w2/');  File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/yl/experiments/$exp_id/$well_id/$site_id/w5/'); var w2_text = '$gene_w2'; var w3_text = '$gene_w3'; var w4_text = '$gene_w4';var w5_text = '$exp_id'; var w6_text = '$complete_well_id'; var w7_text = '$site_id';"
+        
+                        Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
+                        echo "test hello 3"
+                        .\Applications\bin_level_2\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w1/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w2/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w5/');"
+        
+                    } else {
+        
+                        Read-Host -Prompt "Press any key to start this Fiji/ImageJ run."
+                        echo "test hello 4"
+                        .\Applications\Fiji.app\ImageJ-win64.exe -eval "File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w1/');File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w2/');  File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w3/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w4/'); File.openSequence('J:/$user_id/experiments/$exp_id/$well_id/$site_id/w5/');"
          }
-         
-   
     }
+
 } while ($reprocess_check -eq 0)
 
